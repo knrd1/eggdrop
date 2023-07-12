@@ -2,7 +2,7 @@
 
 if {![info exists last_nick]} {set last_nick $botnick}
 
-proc wypierdol_kogos {nick uhost handle chan args} {
+proc wykop_kogos {nick uhost handle chan args} {
   global botnick last_nick
   global rep
 
@@ -11,12 +11,12 @@ proc wypierdol_kogos {nick uhost handle chan args} {
   if {![onchan $last_nick $chan]} {set last_nick $botnick}
   set mylist [chanlist $chan]
 
-## Usun bota z listy nickow do wypierdolenia:
+## Usun bota z listy nickow do wykopenia:
 
   set wb [lsearch $mylist $botnick]
   set mylist [lreplace $mylist $wb $wb]
 
-## Jesli last_nick jest botem - OK. Jesli nie jest, usun ten nick z listy do wypierdolenia:
+## Jesli last_nick jest botem - OK. Jesli nie jest, usun ten nick z listy do wykopenia:
 
   if {$last_nick != $botnick} {
     set wl [lsearch $mylist $last_nick]
@@ -33,12 +33,12 @@ proc wypierdol_kogos {nick uhost handle chan args} {
   set myindex [rand $mylength]
   set result [lindex $mylist $myindex]
 
-## Zbuduj napiecie za pomoca przeklenstw i wypierdol kogos:
+## Zbuduj napiecie za pomoca przeklenstw i wykop kogos:
 
   putserv "PRIVMSG $chan :Spoko!"
-  putserv "NOTICE $chan :Uwaga frajerzy, zaraz kogos wypierdole!"
-  putserv "PRIVMSG $chan :Ej, $result, wypierdalasz!"
-  putserv "KICK $chan $result :Chuj ci w dupe nygusie!"
+  putserv "NOTICE $chan :Uwaga frajerzy, zaraz kogos wykopie!"
+  putserv "PRIVMSG $chan :Ej, $result, wylatujesz!"
+  putserv "KICK $chan $result :Spadaj nygusie!"
 
 ## Zdefiniuj last_nick do kolejnej rundy:
 
@@ -46,6 +46,6 @@ proc wypierdol_kogos {nick uhost handle chan args} {
   return 1
 }
 
-## Publiczna komenda do wypierdalania:
+## Publiczna komenda do wykopywania:
 
-bind pubm - "*!wypierdol*" wypierdol_kogos
+bind pubm - "*!wykop*" wykop_kogos
